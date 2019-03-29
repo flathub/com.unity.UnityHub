@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component>
+<component type="desktop">
   <id>com.unity.UnityHub</id>
   <launchable type="desktop-id">com.unity.UnityHub.desktop</launchable>
   <name>Unity Hub</name>

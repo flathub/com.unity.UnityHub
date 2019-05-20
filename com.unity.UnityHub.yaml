@@ -39,8 +39,8 @@ modules:
       - 'make -C squashfs-tools install INSTALL_DIR=/app/bin'
     sources:
       - type: git
-        url: https://github.com/kirbyfan64/unappimage
-        commit: e3f52ebca3893e943ac97b955f47da626405424d
+        url: https://github.com/refi64/unappimage
+        commit: d7f86f2a0d7ec3a69211125207d5f127386b849a
 
   - name: cpio
     cleanup:

@@ -7,14 +7,15 @@
   <summary>Real-time game engine</summary>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LicenseRef-proprietary</project_license>
-  <url type="homepage">https://unity3d.com/</url>
-  <description>
-    <p>Unity is used to create half of the world’s games. Our real time platform, powered by tools and services, offer incredible possibilities for game developers, and creators across industries and applications.</p>
-    <p>NOTE: This wrapper is not verified by, affiliated with, or supported by Unity Technologies.</p>
-  </description>
+  <url type="homepage">https://unity3d.com</url>
+  <url type="help">https://forum.unity.com</url>
+  <url type="bugtracker">https://github.com/flathub/com.unity.UnityHub/issues</url>
+  <description><p>Unity is used to create half of the world’s games. Our real time platform, powered by tools and services, offer incredible possibilities for game developers, and creators across industries and applications.</p><p>NOTE: This wrapper is not verified by, affiliated with, or supported by Unity Technologies.</p></description>
   <screenshots>
     <screenshot type="default">
-      <image type="source">https://blogs.unity3d.com/wp-content/uploads/2018/09/image1-3.png</image>
+      <image type="source">https://blogs.unity3d.com/wp-content/uploads/2019/04/Hub-v2-beta-project-list.png</image>
+      <image type="source">https://blogs.unity3d.com/wp-content/uploads/2019/04/Hub-v2-beta-install-tab.png</image>
+      <image type="source">https://blogs.unity3d.com/wp-content/uploads/2019/04/sunsettinglauncher.png</image>
     </screenshot>
   </screenshots>
   <kudos>

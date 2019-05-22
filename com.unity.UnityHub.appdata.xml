@@ -3,13 +3,7 @@
   <id>com.unity.UnityHub</id>
   <launchable type="desktop-id">com.unity.UnityHub.desktop</launchable>
   <name>Unity Hub</name>
-  <developer_name>Unity Technologies</developer_name>
   <summary>Real-time game engine</summary>
-  <metadata_license>CC0-1.0</metadata_license>
-  <project_license>LicenseRef-proprietary</project_license>
-  <url type="homepage">https://unity3d.com</url>
-  <url type="help">https://forum.unity.com</url>
-  <url type="bugtracker">https://github.com/flathub/com.unity.UnityHub/issues</url>
   <description>
     <p>Unity is used to create half of the world’s games. Our real time platform, powered by tools and services, offer incredible possibilities for game developers, and creators across industries and applications.</p>
     <p>NOTE: This wrapper is not verified by, affiliated with, or supported by Unity Technologies.</p>
@@ -26,6 +20,13 @@
   <releases>
     <release version="2.0.0" date="2019-05-13" />
   </releases>
+  <url type="homepage">https://unity3d.com</url>
+  <url type="help">https://forum.unity.com</url>
+  <url type="faq">https://unity3d.com/unity/faq</url>
+  <url type="bugtracker">https://github.com/flathub/com.unity.UnityHub/issues</url>
+  <developer_name>Unity Technologies</developer_name>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LicenseRef-proprietary</project_license>
   <content_rating type="oars-1.1">
     <content_attribute id="language-humor">mild</content_attribute>
     <content_attribute id="language-discrimination">mild</content_attribute>

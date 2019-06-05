@@ -66,8 +66,8 @@ modules:
       - type: extra-data
         filename: UnityHubSetup.AppImage
         url: https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.AppImage
-        sha256: 14ad3f5365bc3272133a308c105596747e178c7c9a6fe1924c6b7855adddbf83
-        size: 58061173
+        sha256: 67a8bd669ada5302f98edadbce2e13ed976787953bdbd63d1ee0408a844360f7
+        size: 58040738
       - type: file
         path: Unity.png
       - type: file

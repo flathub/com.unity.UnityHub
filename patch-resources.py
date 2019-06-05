@@ -18,6 +18,9 @@ replacements = (
     # Make Unity Hub respect the XDG dirs (UNITY_DATADIR is set in start-unityhub).
     (re.compile(re.escape(b'${os.homedir()}/.local/share')), b'${process.env.UNITY_DATADIR}'),
 
+    # Auto update will always fail, so just disable it.
+    (re.compile(re.escape(b'this.data[settings.keys.DISABLE_AUTO_UPDATE]')), b'true'),
+
     # Unity Hub has a rather nasty bug where it unconditionally checks the rootfs for disk
     # space, even if what it's checking for doesn't actually go there. This patches around
     # that, ensuring that space calculations will be for the proper path.

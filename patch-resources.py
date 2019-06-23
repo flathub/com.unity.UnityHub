@@ -19,7 +19,7 @@ replacements = (
     (re.compile(re.escape(b'${os.homedir()}/.local/share')), b'${process.env.UNITY_DATADIR}'),
 
     # Auto update will always fail, so just disable it.
-    (re.compile(re.escape(b'this.data[settings.keys.DISABLE_AUTO_UPDATE]')), b'true'),
+    (re.compile(re.escape(br'this._getConfig(settings.keys.DISABLE_AUTO_UPDATE)')), b'true'),
 
     # Unity Hub has a rather nasty bug where it unconditionally checks the rootfs for disk
     # space, even if what it's checking for doesn't actually go there. This patches around
@@ -37,6 +37,7 @@ replacements = (
 
 with open(sys.argv[1], 'r+b') as fp:
     buf = bytearray(fp.read(2048))
+    used_replacements = set()
 
     # Use a 1024-byte sliding window of the 2048-byte buffer to avoid potentially splitting
     # the strings we're looking for over a buffer edge boundary.
@@ -44,7 +45,7 @@ with open(sys.argv[1], 'r+b') as fp:
     # We mostly just don't want to try to sort through the entire 60MB+ file in memory.
 
     while True:
-        for pattern, replacement in replacements:
+        for i, (pattern, replacement) in enumerate(replacements):
             for match in pattern.finditer(buf):
                 assert len(match.group()) >= len(replacement), (len(match.group()),
                                                                 len(replacement), match.group(),
@@ -58,6 +59,7 @@ with open(sys.argv[1], 'r+b') as fp:
                 fp.seek(pos)
 
                 buf[match.start():match.end()] = replacement
+                used_replacements.add(i)
 
                 break
 
@@ -67,3 +69,11 @@ with open(sys.argv[1], 'r+b') as fp:
 
         del buf[:1024]
         buf.extend(chunk)
+
+    if len(used_replacements) != len(replacements):
+        leftover_replacements = set(range(len(replacements))) - used_replacements
+        print('Leftover replacements:', file=sys.stderr)
+        for leftover_index in leftover_replacements:
+            pattern = replacements[leftover_index][0].pattern.decode()
+            print('', pattern, file=sys.stderr)
+        sys.exit(1)

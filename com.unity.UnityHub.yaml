@@ -9,15 +9,15 @@ separate-locales: false
 tags:
   - proprietary
 finish-args:
-  - '--allow=multiarch'
-  - '--device=dri'
-  - '--filesystem=host'
-  - '--share=ipc'
-  - '--share=network'
-  - '--socket=pulseaudio'
-  - '--socket=x11'
-  - '--talk-name=org.freedesktop.Flatpak'
-  - '--talk-name=org.gnome.Software'
+  - --allow=multiarch
+  - --device=dri
+  - --filesystem=host
+  - --share=ipc
+  - --share=network
+  - --socket=pulseaudio
+  - --socket=x11
+  - --talk-name=org.freedesktop.Flatpak
+  - --talk-name=org.gnome.Software
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
@@ -29,14 +29,14 @@ modules:
   - name: compat
     buildsystem: simple
     build-commands:
-      - 'mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu'
+      - mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu
 
   - shared-modules/glu/glu-9.0.0.json
 
   - name: unappimage
     buildsystem: simple
     build-commands:
-      - 'make -C squashfs-tools install INSTALL_DIR=/app/bin'
+      - make -C squashfs-tools install INSTALL_DIR=/app/bin
     sources:
       - type: git
         url: https://github.com/refi64/unappimage
@@ -44,9 +44,9 @@ modules:
 
   - name: cpio
     cleanup:
-      - '/libexec'
-      - '/share/info'
-      - '/share/man'
+      - /libexec
+      - /share/info
+      - /share/man
     sources:
       - type: archive
         url: https://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.gz
@@ -55,19 +55,19 @@ modules:
   - name: unityhub
     buildsystem: simple
     build-commands:
-      - 'install -Dm 755 unityhub.sh /app/bin/start-unityhub'
-      - 'install -Dm 755 vscode.py /app/bin/vscode-editor'
-      - 'install -Dm 755 apply_extra.sh /app/bin/apply_extra'
-      - 'install -Dm 755 patch-resources.py /app/bin/patch-resources'
-      - 'install -Dm 644 com.unity.UnityHub.appdata.xml /app/share/metainfo/com.unity.UnityHub.appdata.xml'
-      - 'install -Dm 644 com.unity.UnityHub.desktop /app/share/applications/com.unity.UnityHub.desktop'
-      - 'install -Dm 644 Unity.png /app/share/icons/hicolor/256x256/apps/com.unity.UnityHub.png'
+      - install -Dm 755 unityhub.sh /app/bin/start-unityhub
+      - install -Dm 755 vscode.py /app/bin/vscode-editor
+      - install -Dm 755 apply_extra.sh /app/bin/apply_extra
+      - install -Dm 755 patch-resources.py /app/bin/patch-resources
+      - install -Dm 644 com.unity.UnityHub.appdata.xml /app/share/metainfo/com.unity.UnityHub.appdata.xml
+      - install -Dm 644 com.unity.UnityHub.desktop /app/share/applications/com.unity.UnityHub.desktop
+      - install -Dm 644 Unity.png /app/share/icons/hicolor/256x256/apps/com.unity.UnityHub.png
     sources:
       - type: extra-data
         filename: UnityHubSetup.AppImage
         url: https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.AppImage
-        sha256: 81774eecf1362df5232a2a404bbe791d23b48dcb3e6a42b290e8829afe5c0886
-        size: 58073196
+        sha256: 8c813aaf84ceee25da2739afdac2f232188d129e34b3ddfbc37bed5b7140d884
+        size: 58085766
       - type: file
         path: Unity.png
       - type: file

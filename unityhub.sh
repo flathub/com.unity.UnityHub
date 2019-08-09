@@ -7,7 +7,7 @@ fi
 
 if [ ! -f $XDG_DATA_HOME/unity3d/prefs ]; then
   b64editor=$(echo -n /app/bin/vscode-editor | base64)
-  b64args=$(echo -n '"$(File)"' | base64)
+  b64args=$(echo -n '$(File)' | base64)
   mkdir -p $XDG_DATA_HOME/unity3d
   cat >$XDG_DATA_HOME/unity3d/prefs <<EOF
 <unity_prefs version_major="1" version_minor="1">

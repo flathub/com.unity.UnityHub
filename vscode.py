@@ -110,7 +110,7 @@ class Flatpak:
 
 
 async def not_installed(*, ref: str, title: str, text: str, branch: str,
-                        available_on_web: bool) -> bool:
+                        available_on_web: bool) -> None:
     software_check = await aio_run('gdbus', 'introspect', '-e', '-d', 'org.gnome.Software',
                                    '-o', '/org/gnome/Software', stdout=subprocess.DEVNULL,
                                    stderr=subprocess.DEVNULL)
@@ -136,14 +136,14 @@ async def not_installed(*, ref: str, title: str, text: str, branch: str,
 class UnityBridge(asyncio.Protocol):
     """UnityBridge represents the connection from this script to Unity."""
 
-    def __init__(self, vscode_transport: asyncio.BaseTransport):
+    def __init__(self, vscode_transport: asyncio.BaseTransport) -> None:
         assert isinstance(vscode_transport, asyncio.Transport)
         self.vscode_transport = vscode_transport
 
-    def data_received(self, data: bytes):
+    def data_received(self, data: bytes) -> None:
         self.vscode_transport.write(data)
 
-    def connection_lost(self, exc: Optional[Exception]):
+    def connection_lost(self, exc: Optional[Exception]) -> None:
         self.vscode_transport.close()
 
 
@@ -155,17 +155,18 @@ class VscodeBridge(asyncio.Protocol):
         self.unity_transport: Optional[asyncio.Transport] = None
         self.buffer = bytearray()
 
-    def connection_made(self, transport: asyncio.BaseTransport):
+    def connection_made(self, transport: asyncio.BaseTransport) -> None:
         asyncio.create_task(self.try_connect(transport))
 
-    async def try_connect(self, transport: asyncio.BaseTransport):
+    async def try_connect(self, transport: asyncio.BaseTransport) -> None:
         loop = asyncio.get_running_loop()
 
         while True:
             # Try connecting to Unity.
             try:
-                unity_transport, _ = await loop.create_connection(lambda: UnityBridge(transport),
-                                                                  'localhost', self.unity_port)
+                unity_transport: asyncio.BaseTransport
+                unity_transport, _ = await loop.create_connection(  # type: ignore
+                    lambda: UnityBridge(transport), 'localhost', self.unity_port)
             except OSError:
                 # Likely a connection failure.
                 print('Error connecting to Unity, will retry after 5s...')
@@ -181,13 +182,13 @@ class VscodeBridge(asyncio.Protocol):
 
                 break
 
-    def data_received(self, data: bytes):
+    def data_received(self, data: bytes) -> None:
         if self.unity_transport is not None:
             self.unity_transport.write(data)
         else:
             self.buffer.extend(data)
 
-    def connection_lost(self, exc: Optional[Exception]):
+    def connection_lost(self, exc: Optional[Exception]) -> None:
         if self.unity_transport is not None:
             self.unity_transport.close()
             self.unity_transport = None
@@ -197,10 +198,11 @@ async def forward_unity_socket(unity_port: int) -> Tuple[int, asyncio.AbstractSe
     loop = asyncio.get_running_loop()
 
     for target_pid in itertools.count(3):
-        target_port = 56000 + target_pid + i
+        target_port = 56000 + target_pid
 
         try:
-            server = await loop.create_server(lambda: VscodeBridge(unity_port),
+            server: asyncio.AbstractServer
+            server = await loop.create_server(lambda: VscodeBridge(unity_port),  # type: ignore
                                               'localhost', target_port)
         except OSError as ex:
             if ex.errno == errno.EADDRINUSE:
@@ -213,7 +215,7 @@ async def forward_unity_socket(unity_port: int) -> Tuple[int, asyncio.AbstractSe
     assert False
 
 
-async def spawn_vscode(flatpak: Flatpak, ref: str, sdk: str, unity_port: int):
+async def spawn_vscode(flatpak: Flatpak, ref: str, sdk: str, unity_port: int) -> NoReturn:
     sdk_arch_branch = sdk.split('/', 1)[1]
 
     missing_sdk_extension_refs: List[str] = []

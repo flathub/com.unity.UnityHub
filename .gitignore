@@ -1,1 +1,5 @@
+_build/
 .flatpak-builder/
+.mypy_cache/
+*.AppImage
+squashfs-root/

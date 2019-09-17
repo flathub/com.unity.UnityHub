@@ -18,7 +18,8 @@
     <kudo>HiDpiIcon</kudo>
   </kudos>
   <releases>
-    <release version="2.1.1" date="2019-09-05" />
+    <release version="2.1.2" date="2019-09-17"/>
+    <release version="2.1.1" date="2019-09-05"/>
   </releases>
   <url type="homepage">https://unity3d.com</url>
   <url type="help">https://forum.unity.com</url>

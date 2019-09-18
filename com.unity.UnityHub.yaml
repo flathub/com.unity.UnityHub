@@ -55,8 +55,8 @@ modules:
 
   - name: libsecret
     config-opts:
-      - '--enable-shared'
-      - '--disable-static'
+      - --enable-shared
+      - --disable-static
     sources:
       - type: archive
         url: https://ftp.gnome.org/pub/GNOME/sources/libsecret/0.18/libsecret-0.18.8.tar.xz
@@ -76,8 +76,8 @@ modules:
       - type: extra-data
         filename: UnityHubSetup.AppImage
         url: https://public-cdn.cloud.unity3d.com/hub/prod/UnityHub.AppImage
-        sha256: d029def544654501ae14c1210befa429bd3e756ccb0c21c74028925e4e11f210
-        size: 59422597
+        sha256: e33d74393cc1368105cf6ae6d19fb9a30a5a40a7533ff9f9c4aa9ca342998d1a
+        size: 59422354
       - type: file
         path: Unity.png
       - type: file

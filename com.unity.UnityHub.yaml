@@ -1,8 +1,8 @@
 app-id: com.unity.UnityHub
 base: io.atom.electron.BaseApp
-base-version: '18.08'
+base-version: '19.08'
 runtime: org.freedesktop.Platform
-runtime-version: '18.08'
+runtime-version: '19.08'
 sdk: org.freedesktop.Sdk
 command: start-unityhub
 separate-locales: false
@@ -22,17 +22,17 @@ finish-args:
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '18.08'
+    version: '19.08'
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '18.08'
+    version: '19.08'
 modules:
   - name: compat
     buildsystem: simple
     build-commands:
       - mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu
 
-  - shared-modules/glu/glu-9.0.0.json
+  - shared-modules/glu/glu-9.json
 
   - name: unappimage
     buildsystem: simple

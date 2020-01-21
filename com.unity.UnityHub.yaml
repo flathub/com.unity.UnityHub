@@ -53,14 +53,7 @@ modules:
         url: https://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.gz
         sha256: 08a35e92deb3c85d269a0059a27d4140a9667a6369459299d08c17f713a92e73
 
-  - name: libsecret
-    config-opts:
-      - --enable-shared
-      - --disable-static
-    sources:
-      - type: archive
-        url: https://ftp.gnome.org/pub/GNOME/sources/libsecret/0.18/libsecret-0.18.8.tar.xz
-        sha256: 3bfa889d260e0dbabcf5b9967f2aae12edcd2ddc9adc365de7a5cc840c311d15
+  - shared-modules/libsecret/libsecret.json
 
   - name: unityhub
     buildsystem: simple

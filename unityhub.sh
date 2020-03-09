@@ -18,4 +18,4 @@ if [ ! -f $XDG_DATA_HOME/unity3d/prefs ]; then
 EOF
 fi
 
-UNITY_DATADIR=$XDG_DATA_HOME TMPDIR=$XDG_CACHE_HOME /app/extra/unityhub-bin --no-sandbox "$@"
+UNITY_DATADIR=$XDG_DATA_HOME TMPDIR=$XDG_CACHE_HOME zypak-wrapper /app/extra/unityhub-bin "$@"

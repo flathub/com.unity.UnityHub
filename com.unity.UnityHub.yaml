@@ -1,5 +1,5 @@
 app-id: com.unity.UnityHub
-base: io.atom.electron.BaseApp
+base: org.electronjs.Electron2.BaseApp
 base-version: '19.08'
 runtime: org.freedesktop.Platform
 runtime-version: '19.08'

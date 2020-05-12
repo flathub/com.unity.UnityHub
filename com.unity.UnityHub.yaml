@@ -19,6 +19,7 @@ finish-args:
   - --talk-name=org.freedesktop.Flatpak
   - --talk-name=org.freedesktop.secrets
   - --talk-name=org.gnome.Software
+  - --talk-name=org.kde.StatusNotifierWatcher
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu

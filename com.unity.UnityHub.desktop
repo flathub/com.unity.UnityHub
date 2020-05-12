@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Unity Hub
 Comment=Imagine, build and succeed with Unity
-Exec=start-unityhub
+Exec=start-unityhub %u
 Terminal=false
 Type=Application
 Icon=com.unity.UnityHub

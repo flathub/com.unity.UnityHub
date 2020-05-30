@@ -54,6 +54,12 @@ modules:
         url: https://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.gz
         sha256: 08a35e92deb3c85d269a0059a27d4140a9667a6369459299d08c17f713a92e73
 
+  - name: git
+    sources:
+      - type: archive
+        url: https://www.kernel.org/pub/software/scm/git/git-2.26.2.tar.gz
+        sha256: e1c17777528f55696815ef33587b1d20f5eec246669f3b839d15dbfffad9c121
+
   - shared-modules/libsecret/libsecret.json
 
   - name: unityhub

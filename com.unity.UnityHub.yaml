@@ -1,8 +1,8 @@
 app-id: com.unity.UnityHub
 base: org.electronjs.Electron2.BaseApp
-base-version: '19.08'
+base-version: '20.08'
 runtime: org.freedesktop.Platform
-runtime-version: '19.08'
+runtime-version: '20.08'
 sdk: org.freedesktop.Sdk
 command: start-unityhub
 separate-locales: false
@@ -23,10 +23,10 @@ finish-args:
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '19.08'
+    version: '20.08'
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '19.08'
+    version: '20.08'
 modules:
   - name: compat
     buildsystem: simple

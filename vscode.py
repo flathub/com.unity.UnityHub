@@ -54,16 +54,18 @@ VSCODE_SCRIPT = r'''
 target_pid="$1"
 shift
 
+code=$(which code code-oss 2>/dev/null | head -1)
+
 cp /usr/bin/sleep /tmp/Unity
 
 for (( i=$$; i < $target_pid; i++ )); do /usr/bin/true; done
 /tmp/Unity infinity &
 
 [[ -d /usr/lib/sdk/dotnet ]] && . /usr/lib/sdk/dotnet/enable.sh
-[[ -d /usr/lib/sdk/mono5 ]] && . /usr/lib/sdk/mono5/use.sh
+[[ -d /usr/lib/sdk/mono6 ]] && . /usr/lib/sdk/mono6/use.sh
 
 # Note: don't do grep -q, code --list-extensions doesn't like SIGPIPE
-if code --list-extensions | grep ms-vscode.csharp >/dev/null &&
+if $code --list-extensions | grep ms-vscode.csharp >/dev/null &&
   ! grep -qs '"omnisharp\.useGlobalMono"\s*:\s*"never"' \
     $XDG_CONFIG_HOME/Code/User/settings.json; then
   zenity --warning --no-wrap --title='omnisharp.useGlobalMono should be "never"' \
@@ -71,7 +73,7 @@ if code --list-extensions | grep ms-vscode.csharp >/dev/null &&
 from within Unity Editor."
 fi
 
-code "$@"
+$code "$@"
 while ps -A | grep -q code; do sleep 5; done
 kill $(jobs -p)
 '''
@@ -219,7 +221,7 @@ async def spawn_vscode(flatpak: Flatpak, ref: str, sdk: str, unity_port: int) ->
     sdk_arch_branch = sdk.split('/', 1)[1]
 
     missing_sdk_extension_refs: List[str] = []
-    for sdk_ext in 'dotnet', 'mono5':
+    for sdk_ext in 'dotnet', 'mono6':
         sdk_ref = f'org.freedesktop.Sdk.Extension.{sdk_ext}'
         if not await flatpak.exists(sdk_ref):
             missing_sdk_extension_refs.append(sdk_ref)
@@ -231,8 +233,8 @@ async def spawn_vscode(flatpak: Flatpak, ref: str, sdk: str, unity_port: int) ->
             ref_to_search = missing_sdk_extension_refs[0]
 
         await not_installed(ref=ref_to_search,
-                            title='dotnet and mono5 SDK extensions are required',
-                            text='The dotnet and mono5 SDK extensions are required for the Unity '
+                            title='dotnet and mono6 SDK extensions are required',
+                            text='The dotnet and mono6 SDK extensions are required for the Unity '
                                  'debugger to work.',
                             branch=sdk_arch_branch.split('/')[-1], available_on_web=False)
 
@@ -249,7 +251,7 @@ async def main() -> None:
 
     flatpak = Flatpak()
 
-    for ref in 'com.visualstudio.code.oss', 'com.visualstudio.code':
+    for ref in 'com.visualstudio.code-oss', 'com.visualstudio.code':
         sdk = await flatpak.get_sdk(ref)
         if sdk is not None:
             await spawn_vscode(flatpak, ref, sdk, unity_port)

@@ -49,8 +49,8 @@ modules:
   - name: unityhub
     buildsystem: simple
     build-commands:
-      - install -Dm 755 unityhub.sh /app/bin/start-unityhub
-      - install -Dm 755 vscode.py /app/bin/vscode-editor
+      - install -Dm 755 unityhub.py /app/bin/start-unityhub
+      - install -Dm 755 vscode.py /app/bin/code
       - install -Dm 755 apply_extra.sh /app/bin/apply_extra
       - install -Dm 755 patch-resources.py /app/bin/patch-resources
       - install -Dm 644 com.unity.UnityHub.appdata.xml /app/share/metainfo/com.unity.UnityHub.appdata.xml
@@ -65,7 +65,7 @@ modules:
       - type: file
         path: Unity.png
       - type: file
-        path: unityhub.sh
+        path: unityhub.py
       - type: file
         path: vscode.py
       - type: file

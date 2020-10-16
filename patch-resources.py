@@ -20,18 +20,6 @@ replacements = (
 
     # Auto update will always fail, so just disable it.
     (re.compile(re.escape(br'this._getConfig(settings.keys.DISABLE_AUTO_UPDATE)')), b'true'),
-
-    # Unity Hub has a rather nasty bug where it unconditionally checks the rootfs for disk
-    # space, even if what it's checking for doesn't actually go there. This patches around
-    # that, ensuring that space calculations will be for the proper path.
-    (re.compile(b'getDiskRootPath\(folder\)\s+{.*?return.*?}', re.DOTALL),
-        b'''getDiskRootPath(f) {
-    let p = f;
-    while (true) {
-      p = path.parse(p).dir;
-      if (fs.existsSync(p)) return p;
-    }
-  }'''),
 )
 
 

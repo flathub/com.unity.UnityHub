@@ -71,7 +71,7 @@ def main():
 
     env = os.environ.copy()
     env['UNITY_DATADIR'] = env['XDG_DATA_HOME']
-    env['TMPDIR'] = f'{env["XDG_RUNTIME_DIR"]}/app/{env["FLATPAK_ID"]}'
+    env['TMPDIR'] = f'{env["XDG_CACHE_HOME"]}/tmp'
 
     os.execvpe('zypak-wrapper',
                ['zypak-wrapper', '/app/extra/unityhub-bin', *sys.argv[1:]],

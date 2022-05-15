@@ -1,8 +1,8 @@
 app-id: com.unity.UnityHub
 base: org.electronjs.Electron2.BaseApp
-base-version: '20.08'
+base-version: '21.08'
 runtime: org.freedesktop.Sdk
-runtime-version: '20.08'
+runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 command: start-unityhub
 separate-locales: false
@@ -23,10 +23,10 @@ finish-args:
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '20.08'
+    version: '21.08'
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '20.08'
+    version: '21.08'
 modules:
   - name: compat
     buildsystem: simple
@@ -34,16 +34,6 @@ modules:
       - mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu
 
   - shared-modules/glu/glu-9.json
-
-  - name: unappimage
-    buildsystem: simple
-    build-commands:
-      - make -C squashfs-tools install INSTALL_DIR=/app/bin
-    sources:
-      - type: git
-        url: https://github.com/refi64/unappimage
-        commit: d7f86f2a0d7ec3a69211125207d5f127386b849a
-
   - shared-modules/libsecret/libsecret.json
 
   - name: unityhub
@@ -58,10 +48,16 @@ modules:
       - install -Dm 644 Unity.png /app/share/icons/hicolor/256x256/apps/com.unity.UnityHub.png
     sources:
       - type: extra-data
-        filename: UnityHubSetup.AppImage
-        url: https://public-cdn.cloud.unity3d.com/hub/prod/UnityHub.AppImage
-        sha256: 166a19bf859432461292c9d3a3bce5e2526d48869668cecf5b212e2936cce37a
-        size: 80813551
+        filename: unityhub.deb
+        url: https://hub.unity3d.com/linux/repos/deb/pool/main/u/unity/unityhub_amd64/unityhub-amd64-3.1.1.deb
+        sha256: 148d3534bbc6c0cb755d30ba5ddaf28b914bff4685d02f292e2b125d1c7b996a
+        size: 125659336
+        x-checker-data:
+          type: debian-repo
+          package-name: unityhub
+          root: https://hub.unity3d.com/linux/repos/deb
+          dist: stable
+          component: main
       - type: file
         path: Unity.png
       - type: file

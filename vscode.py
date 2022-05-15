@@ -34,14 +34,10 @@
 
 from __future__ import annotations
 
-
-if False:
-    from typing import *
-
+from typing import *
 
 import asyncio
 import errno
-import functools
 import itertools
 import os
 import subprocess
@@ -56,20 +52,20 @@ shift
 
 code=$(which code code-oss 2>/dev/null | head -1)
 
-cp /usr/bin/sleep /tmp/Unity
+cp /usr/bin/sleep /run/Unity
 
 for (( i=$$; i < $target_pid; i++ )); do /usr/bin/true; done
-/tmp/Unity infinity &
+/run/Unity infinity &
 
-[[ -d /usr/lib/sdk/dotnet ]] && . /usr/lib/sdk/dotnet/enable.sh
-[[ -d /usr/lib/sdk/mono6 ]] && . /usr/lib/sdk/mono6/use.sh
+[[ -d /usr/lib/sdk/dotnet5 ]] && export PATH="/usr/lib/sdk/dotnet5/bin:$PATH"
+[[ -d /usr/lib/sdk/mono6 ]] && export PATH="/usr/lib/sdk/mono6/bin:$PATH"
 
 # Note: don't do grep -q, code --list-extensions doesn't like SIGPIPE
 if $code --list-extensions | grep ms-vscode.csharp >/dev/null &&
-  ! grep -qs '"omnisharp\.useGlobalMono"\s*:\s*"never"' \
+  ! grep -qs '"omnisharp\.useGlobalMono"\s*:\s*"always"' \
     $XDG_CONFIG_HOME/Code/User/settings.json; then
-  zenity --warning --no-wrap --title='omnisharp.useGlobalMono should be "never"' \
-    --text="omnisharp.useGlobalMono should be set to \"never\" to avoid errors when started
+  zenity --warning --no-wrap --title='omnisharp.useGlobalMono should be "always"' \
+    --text="omnisharp.useGlobalMono should be set to \"always\" to avoid errors when started
 from within Unity Editor."
 fi
 
@@ -90,6 +86,7 @@ async def aio_run(*args: str, **kw) -> subprocess.CompletedProcess:
     if stderr is not None:
         stderr_res = stderr.decode()
 
+    assert proc.returncode is not None
     return subprocess.CompletedProcess(args=args, stdout=stdout_res, stderr=stderr_res,
                                        returncode=proc.returncode)
 
@@ -101,10 +98,10 @@ class Flatpak:
     async def __call__(self, *args, **kw) -> subprocess.CompletedProcess:
         return await aio_run('flatpak-spawn', '--host', 'flatpak', *args, **kw)
 
-    async def get_sdk(self, ref: str) -> str:
+    async def get_sdk(self, ref: str) -> Optional[str]:
         p = await self('info', '--show-sdk', ref, stdout=subprocess.PIPE,
                        stderr=subprocess.DEVNULL)
-        return p.stdout if not p.returncode else None
+        return p.stdout.strip() if not p.returncode else None
 
     async def exists(self, ref: str) -> bool:
         result = await self('info', ref, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -221,10 +218,10 @@ async def spawn_vscode(flatpak: Flatpak, ref: str, sdk: str, unity_port: int) ->
     sdk_arch_branch = sdk.split('/', 1)[1]
 
     missing_sdk_extension_refs: List[str] = []
-    for sdk_ext in 'dotnet', 'mono6':
-        sdk_ref = f'org.freedesktop.Sdk.Extension.{sdk_ext}'
-        if not await flatpak.exists(sdk_ref):
-            missing_sdk_extension_refs.append(sdk_ref)
+    for sdk_ext in 'dotnet5', 'mono6':
+        sdk_ext_ref = f'org.freedesktop.Sdk.Extension.{sdk_ext}'
+        if not await flatpak.exists(f'{sdk_ext_ref}/{sdk_arch_branch}'):
+            missing_sdk_extension_refs.append(sdk_ext_ref)
 
     if missing_sdk_extension_refs:
         if len(missing_sdk_extension_refs) == 2:

@@ -7,41 +7,31 @@ import os
 import subprocess
 import sys
 
-EULA_ACCEPT = '/var/data/eula-accept'
-
 
 def to_base64(s):
     return base64.b64encode(s.encode('ascii')).decode('ascii')
 
 
-def replace_pref(root, pref, value):
+def edit_pref(root, pref, type, func):
     element = root.find(f'*[@name="{pref}"]')
     if element is None:
         element = ElementTree.SubElement(root, 'pref', {
-            'type': 'string',
+            'type': type,
             'name': pref
         })
 
-    if element.text != value:
-        element.text = value
+    new_value = func(element.text)
+    if element.text != new_value:
+        element.text = new_value
         return True
     else:
         return False
 
+def replace_string_pref(root, pref, value):
+    return edit_pref(root, pref, 'string', lambda _: value)
+
 
 def main():
-    if not os.path.exists(EULA_ACCEPT):
-        ret = subprocess.run([
-            'zenity', '--text-info', '--title=Unity Hub',
-            '--filename=/app/extra/license.txt', '--ok-label=Agree',
-            '--cancel-label=Disagree'
-        ])
-        if ret.returncode:
-            sys.exit()
-
-        with open(EULA_ACCEPT, 'w'):
-            pass
-
     prefs = os.path.join(os.environ['XDG_DATA_HOME'], 'unity3d', 'prefs')
     if not os.path.exists(prefs):
         os.makedirs(os.path.dirname(prefs), exist_ok=True)
@@ -57,9 +47,12 @@ def main():
     root = tree.getroot()
 
     was_changed = any([
-        replace_pref(root, 'kScriptsDefaultApp', b64_editor),
-        replace_pref(root, 'kScriptEditorArgs', b64_args),
-        replace_pref(root, 'kScriptEditorArgs/app/bin/code', b64_args),
+        replace_string_pref(root, 'kScriptsDefaultApp', b64_editor),
+        replace_string_pref(root, 'kScriptEditorArgs', b64_args),
+        replace_string_pref(root, 'kScriptEditorArgs/app/bin/code', b64_args),
+        # Generate project files for built-in and registry packages.
+        edit_pref(root, 'unity_project_generation_flag', 'int',
+                  lambda prev: str(int(prev or '0') | 1 << 2 | 1 << 4))
     ])
 
     if was_changed:

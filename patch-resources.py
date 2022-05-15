@@ -19,7 +19,7 @@ replacements = (
     (re.compile(re.escape(b'${os.homedir()}/.local/share')), b'${process.env.UNITY_DATADIR}'),
 
     # Auto update will always fail, so just disable it.
-    (re.compile(re.escape(br'this._getConfig(settings.keys.DISABLE_AUTO_UPDATE)')), b'true'),
+    (re.compile(re.escape(b'AUTO_UPDATE: true')), b'AUTO_UPDATE: 0'),
 )
 
 

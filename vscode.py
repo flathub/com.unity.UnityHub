@@ -57,15 +57,15 @@ cp /usr/bin/sleep /run/Unity
 for (( i=$$; i < $target_pid; i++ )); do /usr/bin/true; done
 /run/Unity infinity &
 
-[[ -d /usr/lib/sdk/dotnet5 ]] && export PATH="/usr/lib/sdk/dotnet5/bin:$PATH"
+[[ -d /usr/lib/sdk/dotnet6 ]] && export PATH="/usr/lib/sdk/dotnet6/bin:$PATH"
 [[ -d /usr/lib/sdk/mono6 ]] && export PATH="/usr/lib/sdk/mono6/bin:$PATH"
 
 # Note: don't do grep -q, code --list-extensions doesn't like SIGPIPE
-if $code --list-extensions | grep ms-vscode.csharp >/dev/null &&
-  ! grep -qs '"omnisharp\.useGlobalMono"\s*:\s*"always"' \
+if $code --list-extensions | grep ms-dotnettools.csharp >/dev/null &&
+  ! grep -qs '"omnisharp\.useModernNet"\s*:\s*"false"' \
     $XDG_CONFIG_HOME/Code/User/settings.json; then
-  zenity --warning --no-wrap --title='omnisharp.useGlobalMono should be "always"' \
-    --text="omnisharp.useGlobalMono should be set to \"always\" to avoid errors when started
+  zenity --warning --no-wrap --title='omnisharp.useModernNet should be "false"' \
+    --text="omnisharp.useModernNet should be set to \"false\" to avoid errors when started
 from within Unity Editor."
 fi
 
@@ -218,7 +218,7 @@ async def spawn_vscode(flatpak: Flatpak, ref: str, sdk: str, unity_port: int) ->
     sdk_arch_branch = sdk.split('/', 1)[1]
 
     missing_sdk_extension_refs: List[str] = []
-    for sdk_ext in 'dotnet5', 'mono6':
+    for sdk_ext in 'dotnet6', 'mono6':
         sdk_ext_ref = f'org.freedesktop.Sdk.Extension.{sdk_ext}'
         if not await flatpak.exists(f'{sdk_ext_ref}/{sdk_arch_branch}'):
             missing_sdk_extension_refs.append(sdk_ext_ref)
@@ -230,8 +230,8 @@ async def spawn_vscode(flatpak: Flatpak, ref: str, sdk: str, unity_port: int) ->
             ref_to_search = missing_sdk_extension_refs[0]
 
         await not_installed(ref=ref_to_search,
-                            title='dotnet and mono6 SDK extensions are required',
-                            text='The dotnet and mono6 SDK extensions are required for the Unity '
+                            title='dotnet6 and mono6 SDK extensions are required',
+                            text='The dotnet6 and mono6 SDK extensions are required for the Unity '
                                  'debugger to work.',
                             branch=sdk_arch_branch.split('/')[-1], available_on_web=False)
 

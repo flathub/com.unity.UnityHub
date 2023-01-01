@@ -50,9 +50,6 @@ def main():
         replace_string_pref(root, 'kScriptsDefaultApp', b64_editor),
         replace_string_pref(root, 'kScriptEditorArgs', b64_args),
         replace_string_pref(root, 'kScriptEditorArgs/app/bin/code', b64_args),
-        # Generate project files for built-in and registry packages.
-        edit_pref(root, 'unity_project_generation_flag', 'int',
-                  lambda prev: str(int(prev or '0') | 1 << 2 | 1 << 4))
     ])
 
     if was_changed:

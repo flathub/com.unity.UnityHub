@@ -62,10 +62,10 @@ for (( i=$$; i < $target_pid; i++ )); do /usr/bin/true; done
 
 # Note: don't do grep -q, code --list-extensions doesn't like SIGPIPE
 if $code --list-extensions | grep ms-dotnettools.csharp >/dev/null &&
-  ! grep -qs '"omnisharp\.useModernNet"\s*:\s*"false"' \
+  ! grep -qs '"omnisharp\.useModernNet"\s*:\s*false' \
     $XDG_CONFIG_HOME/Code/User/settings.json; then
-  zenity --warning --no-wrap --title='omnisharp.useModernNet should be "false"' \
-    --text="omnisharp.useModernNet should be set to \"false\" to avoid errors when started
+  zenity --warning --no-wrap --title='omnisharp.useModernNet should be false' \
+    --text="omnisharp.useModernNet should be set to false to avoid errors when started
 from within Unity Editor."
 fi
 

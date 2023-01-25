@@ -50,7 +50,7 @@ VSCODE_SCRIPT = r'''
 target_pid="$1"
 shift
 
-code=$(which code code-oss 2>/dev/null | head -1)
+code=$(which code codium code-oss 2>/dev/null | head -1)
 
 cp /usr/bin/sleep /run/Unity
 
@@ -248,7 +248,7 @@ async def main() -> None:
 
     flatpak = Flatpak()
 
-    for ref in 'com.visualstudio.code-oss', 'com.visualstudio.code':
+    for ref in 'com.visualstudio.code-oss', 'com.visualstudio.code', 'com.vscodium.codium':
         sdk = await flatpak.get_sdk(ref)
         if sdk is not None:
             await spawn_vscode(flatpak, ref, sdk, unity_port)

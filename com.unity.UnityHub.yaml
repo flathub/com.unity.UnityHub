@@ -45,7 +45,7 @@ modules:
       - install -Dm 755 patch-resources.py /app/bin/patch-resources
       - install -Dm 644 com.unity.UnityHub.appdata.xml /app/share/metainfo/com.unity.UnityHub.appdata.xml
       - install -Dm 644 com.unity.UnityHub.desktop /app/share/applications/com.unity.UnityHub.desktop
-      - install -Dm 644 Unity.png /app/share/icons/hicolor/256x256/apps/com.unity.UnityHub.png
+      - for size in 16 32 48 64 128 256 512; do install -Dm 644 unityhub-${size}.png /app/share/icons/hicolor/${size}x${size}/apps/com.unity.UnityHub.png; done
     sources:
       - type: extra-data
         filename: unityhub.deb
@@ -58,8 +58,8 @@ modules:
           root: https://hub.unity3d.com/linux/repos/deb
           dist: stable
           component: main
-      - type: file
-        path: Unity.png
+      - type: dir
+        path: icons
       - type: file
         path: unityhub.py
       - type: file

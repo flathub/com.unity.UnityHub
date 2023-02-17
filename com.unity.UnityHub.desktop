@@ -8,3 +8,4 @@ Icon=com.unity.UnityHub
 MimeType=x-scheme-handler/unityhub;
 Categories=Development;
 StartupWMClass=unityhub
+PrefersNonDefaultGPU=true

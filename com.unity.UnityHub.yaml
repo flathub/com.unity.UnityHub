@@ -45,13 +45,14 @@ modules:
       - install -Dm 755 patch-resources.py /app/bin/patch-resources
       - install -Dm 644 com.unity.UnityHub.appdata.xml /app/share/metainfo/com.unity.UnityHub.appdata.xml
       - install -Dm 644 com.unity.UnityHub.desktop /app/share/applications/com.unity.UnityHub.desktop
-      - for size in 16 32 48 64 128 256 512; do install -Dm 644 unityhub-${size}.png /app/share/icons/hicolor/${size}x${size}/apps/com.unity.UnityHub.png; done
+      - for size in 16 32 48 64 128 256 512; do install -Dm 644 unityhub-${size}.png
+        /app/share/icons/hicolor/${size}x${size}/apps/com.unity.UnityHub.png; done
     sources:
       - type: extra-data
         filename: unityhub.deb
-        url: https://hub.unity3d.com/linux/repos/deb/pool/main/u/unity/unityhub_amd64/unityhub-amd64-3.4.1.deb
-        sha256: fcfea03cb49119fc0437cd3573236b653a47c9928efb8b54e9c16f2f3f0446ea
-        size: 139703122
+        url: https://hub.unity3d.com/linux/repos/deb/pool/main/u/unity/unityhub_amd64/unityhub-amd64-3.5.1.deb
+        sha256: 47f1217f7efd55b87f7cdea224ee812ac52e18c7b6a2025d956a2c12547eedff
+        size: 147592868
         x-checker-data:
           type: debian-repo
           package-name: unityhub

@@ -6,12 +6,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to report an issue! Please note this Flatpak 
-        is not verified by, affiliated with, or supported by Unity Technologies; 
-        **it is maintained by volunteers who have no access to the Unity source 
-        code.** As such, some issues may be unsolvable in the Flatpak packaging 
-        itself, and must be fixed upstream by Unity.
-  
+        Thanks for taking the time to report an issue! Please note this Flatpak is not verified by, affiliated with, or supported by Unity Technologies; **it is maintained by volunteers who have no access to the Unity source code.** As such, some issues may be unsolvable in the Flatpak packaging itself, and must be fixed upstream by Unity.
+
   - type: textarea
     id: what-happened
     attributes:

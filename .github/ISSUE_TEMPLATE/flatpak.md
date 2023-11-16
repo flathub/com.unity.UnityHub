@@ -13,7 +13,7 @@ body:
         itself, and must be fixed upstream by Unity.
   
   - type: textarea
-    id: reproduce
+    id: what-happened
     attributes:
       label: What Happened
       description: | 
@@ -38,7 +38,8 @@ body:
   - type: input
     id: os
     attributes:
-      label: What OS and version are you seeing the problem on?
+      label: Operating System
+      description: What specific OS and version are you seeing the problem on?
       placeholder: e.g. Fedora Silverblue 39, Ubuntu 22.04, etc.
 
   - type: textarea

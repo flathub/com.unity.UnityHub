@@ -1,0 +1,58 @@
+name: Issue with the Flatpak
+description: Report an issue using Unity Hub as a Flatpak
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue! Please note this Flatpak 
+        is not verified by, affiliated with, or supported by Unity Technologies; 
+        **it is maintained by volunteers who have no access to the Unity source 
+        code.** As such, some issues may be unsolvable in the Flatpak packaging 
+        itself, and must be fixed upstream by Unity.
+  
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What Happened
+      description: | 
+        Describe the issue you experienced, and what you would have expected to 
+        happen instead.
+      placeholder: When I was doing X, I tried to do Y, but then Z happened...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to Reproduce
+      description: Can it be reliably reproduced, and if so, how?
+      placeholder: |
+        1. Open Unity Hub
+        2. Create a new project with settings X, Y, and Z
+        3. ...
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: What specific OS and version are you seeing the problem on?
+      placeholder: e.g. Fedora Silverblue 39, Ubuntu 22.04, etc.
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Command-line output
+      description: | 
+        Try running Unity Hub from a terminal with `flatpak run com.unity.UnityHub`, 
+        then copy and paste the output here.
+      render: shell
+
+  - type: textarea
+    id: misc
+    attributes:
+      label: Anything else?
+      description: Any other comments or information that would be useful?

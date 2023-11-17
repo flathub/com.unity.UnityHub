@@ -1,8 +1,8 @@
 app-id: com.unity.UnityHub
 base: org.electronjs.Electron2.BaseApp
-base-version: '21.08'
+base-version: '22.08'
 runtime: org.freedesktop.Sdk
-runtime-version: '21.08'
+runtime-version: '22.08'
 sdk: org.freedesktop.Sdk
 command: start-unityhub
 separate-locales: false
@@ -26,10 +26,10 @@ finish-args:
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '21.08'
+    version: '22.08'
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '21.08'
+    version: '22.08'
 modules:
   - name: compat
     buildsystem: simple
@@ -38,6 +38,7 @@ modules:
 
   - shared-modules/glu/glu-9.json
   - shared-modules/libsecret/libsecret.json
+  - openssl-1.1.yaml
 
   - name: unityhub
     buildsystem: simple

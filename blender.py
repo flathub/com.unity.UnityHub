@@ -74,7 +74,8 @@ async def main() -> None:
     flatpak = Flatpak()
 
     ref = 'org.blender.Blender'
-    if flatpak.exists(ref):
+    installed = await flatpak.exists(ref)
+    if installed:
         await spawn_blender(flatpak, ref)
 
     await not_installed(ref='org.blender.Blender', title='Blender is required',

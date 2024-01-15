@@ -45,6 +45,7 @@ modules:
     build-commands:
       - install -Dm 755 unityhub.py /app/bin/start-unityhub
       - install -Dm 755 vscode.py /app/bin/code
+      - install -Dm 755 blender.py /app/bin/blender
       - install -Dm 755 apply_extra.sh /app/bin/apply_extra
       - install -Dm 755 patch-resources.py /app/bin/patch-resources
       - install -Dm 644 com.unity.UnityHub.appdata.xml /app/share/metainfo/com.unity.UnityHub.appdata.xml
@@ -69,6 +70,8 @@ modules:
         path: unityhub.py
       - type: file
         path: vscode.py
+      - type: file
+        path: blender.py
       - type: file
         path: apply_extra.sh
       - type: file

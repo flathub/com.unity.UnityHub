@@ -34,10 +34,6 @@ add-extensions:
     directory: lib/ffmpeg
     version: '22.08'
     add-ld-path: .
-  org.freedesktop.Platform.ffmpeg_full.i386:
-    directory: lib32/ffmpeg
-    version: '22.08'
-    add-ld-path: .
 modules:
   - name: compat
     buildsystem: simple

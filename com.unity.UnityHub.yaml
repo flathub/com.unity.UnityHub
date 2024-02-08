@@ -30,6 +30,10 @@ add-extensions:
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
     version: '22.08'
+  org.freedesktop.Platform.ffmpeg-full:
+    directory: lib/ffmpeg
+    version: '22.08'
+    add-ld-path: .
 modules:
   - name: compat
     buildsystem: simple
@@ -43,6 +47,7 @@ modules:
   - name: unityhub
     buildsystem: simple
     build-commands:
+      - mkdir -p /app/lib/ffmpeg
       - install -Dm 755 unityhub.py /app/bin/start-unityhub
       - install -Dm 755 vscode.py /app/bin/code
       - install -Dm 755 blender.py /app/bin/blender

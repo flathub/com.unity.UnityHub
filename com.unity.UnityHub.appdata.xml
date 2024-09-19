@@ -49,7 +49,7 @@
     <release version="2.1.1" date="2019-09-05"/>
   </releases>
   <url type="homepage">https://unity3d.com</url>
-  <url type="help">https://forum.unity.com</url>
+  <url type="help">https://discussions.unity.com/</url>
   <url type="faq">https://unity3d.com/unity/faq</url>
   <url type="bugtracker">https://github.com/flathub/com.unity.UnityHub/issues</url>
   <developer_name>Unity Technologies</developer_name>

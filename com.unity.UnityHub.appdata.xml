@@ -10,7 +10,12 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image type="source">https://blog-api.unity.com/sites/default/files/styles/focal_crop_ratio_16_9/public/2019/04/Hub-v2-beta-install-tab.png</image>
+      <image type="source" width="1300" height="805">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/e580df42dc80205788f3d55dee07950530488b59/screenshots/installed-versions.png</image>
+      <caption>Unity Hub listing installed versions of Unity Editor</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="1300" height="805">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/e580df42dc80205788f3d55dee07950530488b59/screenshots/splash-screen.png</image>
+      <caption>Unity Hub prompting the user to log in</caption>
     </screenshot>
   </screenshots>
   <kudos>

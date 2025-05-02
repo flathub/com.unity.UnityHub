@@ -1,3 +1,4 @@
 {
+  "end-of-life": "This application is no longer maintained due to lack of interested maintainers and issues with the current version. https://github.com/flathub/com.unity.UnityHub/issues/137",
   "only-arches": ["x86_64"]
 }

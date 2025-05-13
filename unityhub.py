@@ -64,7 +64,7 @@ def main():
     env['TMPDIR'] = f'{env["XDG_CACHE_HOME"]}/tmp'
 
     os.execvpe('zypak-wrapper',
-               ['zypak-wrapper', '/app/extra/unityhub-bin', *sys.argv[1:]],
+               ['zypak-wrapper', '/app/extra/unityhub-bin', '--', *sys.argv[1:]],
                env)
 
 

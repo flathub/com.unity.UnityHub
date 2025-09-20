@@ -47,29 +47,35 @@ import webbrowser
 
 
 VSCODE_SCRIPT = r'''
-target_pid="$1"
+package=$1
+setting=$2
+dotnet=$3
+mono=$4
+arg_start_index=$5
+target_pid="${@: arg_start_index:1}"
 shift
 
-code=$(which code codium code-oss 2>/dev/null | head -1)
+code=`which $package 2>/dev/null | head -1`
+setting=$XDG_CONFIG_HOME/$setting
 
 cp /usr/bin/sleep /run/Unity
 
 for (( i=$$; i < $target_pid; i++ )); do /usr/bin/true; done
 /run/Unity infinity &
 
-[[ -d /usr/lib/sdk/dotnet6 ]] && export PATH="/usr/lib/sdk/dotnet6/bin:$PATH"
-[[ -d /usr/lib/sdk/mono6 ]] && export PATH="/usr/lib/sdk/mono6/bin:$PATH"
+[[ -d /usr/lib/sdk/$dotnet ]] && export PATH="/usr/lib/sdk/$dotnet/bin:$PATH"
+[[ -d /usr/lib/sdk/$mono ]] && export PATH="/usr/lib/sdk/$mono/bin:$PATH"
 
 # Note: don't do grep -q, code --list-extensions doesn't like SIGPIPE
 if $code --list-extensions | grep ms-dotnettools.csharp >/dev/null &&
-  ! grep -qs '"omnisharp\.useModernNet"\s*:\s*false' \
-    $XDG_CONFIG_HOME/Code/User/settings.json; then
+  grep -qs '"dotnet\.server\.useOmnisharp"\s*:\s*true' $user_setting &&
+  ! grep -qs '"omnisharp\.useModernNet"\s*:\s*false' $user_setting; then
   zenity --warning --no-wrap --title='omnisharp.useModernNet should be false' \
     --text="omnisharp.useModernNet should be set to false to avoid errors when started
 from within Unity Editor."
 fi
 
-$code "$@"
+$code "${@: arg_start_index}"
 while ps -A | grep -q code; do sleep 5; done
 kill $(jobs -p)
 '''
@@ -193,6 +199,26 @@ class VscodeBridge(asyncio.Protocol):
             self.unity_transport = None
 
 
+class Editor:
+    def __init__(self, ref, extensions, pkg, setting):
+        self.ref = ref
+        self.extensions = extensions
+        self.pkg = pkg
+        self.setting = setting
+
+    def get_bash_arguments(self):
+        result: List[str] = []
+        result.append(self.pkg)
+        result.append(self.setting)
+        for ext in self.extensions:
+            result.append(ext)
+        # we add last element as an index to mark the start of the real arguments that need to pass to vscode editor
+        # it will be equal to the size of our list plus 1, because bash script arguments index start at 1
+        result.append("")
+        result[-1] = str(len(result) + 1)
+        return result
+
+
 async def forward_unity_socket(unity_port: int) -> Tuple[int, asyncio.AbstractServer]:
     loop = asyncio.get_running_loop()
 
@@ -214,14 +240,19 @@ async def forward_unity_socket(unity_port: int) -> Tuple[int, asyncio.AbstractSe
     assert False
 
 
-async def spawn_vscode(flatpak: Flatpak, ref: str, sdk: str, unity_port: int) -> NoReturn:
-    sdk_arch_branch = sdk.split('/', 1)[1]
+async def spawn_vscode(flatpak: Flatpak, editor: Editor, sdk: str, unity_port: int) -> NoReturn:
+    sdk_info = sdk.split('/')
+    arch = sdk_info[1]
+    branch = sdk_info[2]
+    sdk_arch_branch = f'{arch}/{branch}'
 
     missing_sdk_extension_refs: List[str] = []
-    for sdk_ext in 'dotnet6', 'mono6':
+    missing_sdk_exts: List[str] = []
+    for sdk_ext in editor.extensions:
         sdk_ext_ref = f'org.freedesktop.Sdk.Extension.{sdk_ext}'
         if not await flatpak.exists(f'{sdk_ext_ref}/{sdk_arch_branch}'):
             missing_sdk_extension_refs.append(sdk_ext_ref)
+            missing_sdk_exts.append(sdk_ext)
 
     if missing_sdk_extension_refs:
         if len(missing_sdk_extension_refs) == 2:
@@ -230,14 +261,14 @@ async def spawn_vscode(flatpak: Flatpak, ref: str, sdk: str, unity_port: int) ->
             ref_to_search = missing_sdk_extension_refs[0]
 
         await not_installed(ref=ref_to_search,
-                            title='dotnet6 and mono6 SDK extensions are required',
-                            text='The dotnet6 and mono6 SDK extensions are required for the Unity '
+                            title='SDK extensions are required',
+                            text=f'The {missing_sdk_exts} SDK extensions (arch: {arch}, branch: {branch}) are required for the Unity '
                                  'debugger to work.',
-                            branch=sdk_arch_branch.split('/')[-1], available_on_web=False)
+                            branch=branch, available_on_web=False)
 
     target_pid, transport = await forward_unity_socket(unity_port)
-    res = await flatpak('run', '--command=bash', ref, '-c', VSCODE_SCRIPT, '--', str(target_pid),
-                        *sys.argv[1:])
+    res = await flatpak('run', '--command=bash', editor.ref, '-c', VSCODE_SCRIPT, '--', *editor.get_bash_arguments(),
+                        str(target_pid), *sys.argv[1:])
     transport.close()
     sys.exit(res.returncode)
 
@@ -248,10 +279,15 @@ async def main() -> None:
 
     flatpak = Flatpak()
 
-    for ref in 'com.visualstudio.code-oss', 'com.visualstudio.code', 'com.vscodium.codium':
-        sdk = await flatpak.get_sdk(ref)
+    editors: List[Editor] = []
+    editors.append(Editor('com.visualstudio.code', ['dotnet9', 'mono6'], 'code', 'Code/User/settings.json'))
+    editors.append(Editor('com.visualstudio.code-oss', ['dotnet6', 'mono6'], 'code-oss', 'Code - OSS/User/settings.json'))
+    editors.append(Editor('com.vscodium.codium', ['dotnet9', 'mono6'], 'com.vscodium.codium', 'Visual Studio Code/User/settings.json'))
+
+    for editor in editors:
+        sdk = await flatpak.get_sdk(editor.ref)
         if sdk is not None:
-            await spawn_vscode(flatpak, ref, sdk, unity_port)
+            await spawn_vscode(flatpak, editor, sdk, unity_port)
 
     await not_installed(ref='com.visualstudio.code', title='Visual Studio Code is required',
                         text='Visual Studio Code is required to edit Unity scripts.', branch='',

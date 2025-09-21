@@ -250,12 +250,13 @@ async def spawn_vscode(flatpak: Flatpak, editor: Editor, sdk: str, unity_port: i
     arch = sdk_info[1]
     branch = sdk_info[2]
 
-    missing_extensions: List[str] = []
     args: List[str] = []
     # the first element will mark the start index of the arguments that unity pass to the code editor
     # it will be equal to the size of our list plus 1, because bash script arguments index start at 1
     args.append("0")
     args.extend(editor.get_bash_arguments())
+
+    missing_extensions: List[str] = []
     for sdk_ext in 'org.freedesktop.Sdk.Extension.dotnet', 'org.freedesktop.Sdk.Extension.mono':
         ext = await flatpak.get_extension(sdk_ext, arch, branch)
         args.append(str(ext))

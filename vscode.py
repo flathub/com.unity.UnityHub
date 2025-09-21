@@ -126,16 +126,6 @@ class Flatpak:
                 return ref_parts[-1]
         return None
 
-    async def search_remote_extension_ref(self, sdk_ext: str, arch: str, branch: str) -> str:
-        p = await self('search', f'--arch={arch}', '--columns=application,branch', sdk_ext, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-        if p.returncode:
-            return None
-        for sdk in p.stdout.strip().splitlines():
-            if sdk.find(branch) != -1:
-                ref = sdk.split('\t')[0]
-                return ref
-        return None
-
 
 async def not_installed(*, ref: str, title: str, text: str, branch: str,
                         available_on_web: bool) -> None:
@@ -260,6 +250,7 @@ async def spawn_vscode(flatpak: Flatpak, editor: Editor, sdk: str, unity_port: i
     arch = sdk_info[1]
     branch = sdk_info[2]
 
+    missing_extensions: List[str] = []
     args: List[str] = []
     # the first element will mark the start index of the arguments that unity pass to the code editor
     # it will be equal to the size of our list plus 1, because bash script arguments index start at 1
@@ -267,29 +258,30 @@ async def spawn_vscode(flatpak: Flatpak, editor: Editor, sdk: str, unity_port: i
     args.extend(editor.get_bash_arguments())
     for sdk_ext in 'org.freedesktop.Sdk.Extension.dotnet', 'org.freedesktop.Sdk.Extension.mono':
         ext = await flatpak.get_extension(sdk_ext, arch, branch)
-        if ext:
-            args.append(ext)
-        else:
-            # append anything just to have enough arguments, Idk if we need it, but I don't wanna handle complicated logic in bash script
-            args.append(sdk_ext)
+        args.append(str(ext))
+        # required extensions isn't installed, search for it on remote
+        if not ext:
+            missing_extensions.append(sdk_ext)
 
-            # couldn't find required extensions, search for it on remotes and inform user
-            ref_to_search = await flatpak.search_remote_extension_ref(sdk_ext, arch, branch)
-            if ref_to_search:
-                if HAS_GNOME_SOFTWARE:
-                    additional_text = 'Would you like to install it?'
-                else:
-                    additional_text = 'Please install it from Flathub.'
+    if missing_extensions:
+        if HAS_GNOME_SOFTWARE:
+            if len(missing_extensions) == 2:
+                ref_to_search = 'org.freedesktop.Sdk.Extension'
             else:
-                ref_to_search = sdk_ext
-                additional_text = f'But we couldn\'t find anything that is compatible with your *{editor.ref}* code editor.'\
-                    ' Please consider downgrade your code editor.'
+                ref_to_search = missing_extensions[0]
+            additional_text = 'Would you like to install it?'
+        else:
+            ref_to_search = f'{missing_extensions}'
+            additional_text = 'Please install it from Flathub.'
 
-            await not_installed(ref=ref_to_search,
-                                title='SDK extensions are required',
-                                text=f'The *{ref_to_search}* SDK extensions (arch: *{arch}*, branch: *{branch}*) are required for the Unity'
-                                    f' debugger to work.\n{additional_text}',
-                                branch=branch, available_on_web=False)
+        text = 'The below SDK extensions are required for the Unity debugger to work.'
+        for ext in missing_extensions:
+            text = text + f'\n  - {ext}'
+        text = text + f'\n(arch: *{arch}*, branch: *{branch}*)\n{additional_text}'
+        await not_installed(ref=ref_to_search,
+                            title='SDK extensions are required',
+                            text=text,
+                            branch=branch, available_on_web=False)
 
     args[0] = str(len(args) + 1)
 

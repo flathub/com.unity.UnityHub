@@ -117,7 +117,7 @@ class Flatpak:
         p = await self('list', '--runtime', '--columns=ref', stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
         if p.returncode:
             return None
-        # it seems that `flatpak list` command return the list in ascending order, which mean oldest to latest, but I maybe wrong
+        # it seems that `flatpak list` command return the list in ascending order, which mean oldest to latest, but I may be wrong
         # loop through each line in reversed order to get latest version of the sdk extension in case we found multiple installed extensions
         for sdk in p.stdout.strip().splitlines()[::-1]:
             if sdk.find(sdk_ext) != -1 and sdk.find(arch) != -1 and sdk.find(branch) != -1:
@@ -130,7 +130,8 @@ class Flatpak:
 async def not_installed(*, ref: str, title: str, text: str, branch: str,
                         available_on_web: bool) -> None:
     if ref and (HAS_GNOME_SOFTWARE or available_on_web):
-        zenity = await aio_run('zenity', '--no-wrap', '--question', f'--title={title}', f'--text={text}')
+        zenity = await aio_run('zenity', '--no-wrap', '--question', f'--title={title}',
+                               f'--text={text}\nWould you like to install it?')
         if not zenity.returncode:
             if HAS_GNOME_SOFTWARE:
                 await aio_run('gdbus', 'call', '-e', '-d', 'org.gnome.Software', '-o',
@@ -141,7 +142,8 @@ async def not_installed(*, ref: str, title: str, text: str, branch: str,
 
             sys.exit()
     else:
-        await aio_run('zenity', '--no-wrap', '--warning', f'--title={title}', f'--text={text}')
+        await aio_run('zenity', '--no-wrap', '--warning', f'--title={title}',
+                      f'--text={text}\nPlease install it from Flathub.')
 
 
 class UnityBridge(asyncio.Protocol):
@@ -256,29 +258,24 @@ async def spawn_vscode(flatpak: Flatpak, editor: Editor, sdk: str, unity_port: i
     args.append("0")
     args.extend(editor.get_bash_arguments())
 
-    missing_extensions: List[str] = []
+    missing_sdk_extension_refs: List[str] = []
     for sdk_ext in 'org.freedesktop.Sdk.Extension.dotnet', 'org.freedesktop.Sdk.Extension.mono':
         ext = await flatpak.get_extension(sdk_ext, arch, branch)
         args.append(str(ext))
         # required extensions isn't installed, search for it on remote
         if not ext:
-            missing_extensions.append(sdk_ext)
+            missing_sdk_extension_refs.append(sdk_ext)
 
-    if missing_extensions:
-        if HAS_GNOME_SOFTWARE:
-            if len(missing_extensions) == 2:
-                ref_to_search = 'org.freedesktop.Sdk.Extension'
-            else:
-                ref_to_search = missing_extensions[0]
-            additional_text = 'Would you like to install it?'
+    if missing_sdk_extension_refs:
+        if len(missing_sdk_extension_refs) == 2:
+            ref_to_search = 'org.freedesktop.Sdk.Extension'
         else:
-            ref_to_search = f'{missing_extensions}'
-            additional_text = 'Please install it from Flathub.'
+            ref_to_search = missing_sdk_extension_refs[0]
 
         text = 'The below SDK extensions are required for the Unity debugger to work.'
-        for ext in missing_extensions:
+        for ext in missing_sdk_extension_refs:
             text = text + f'\n  - {ext}'
-        text = text + f'\n(arch: *{arch}*, branch: *{branch}*)\n{additional_text}'
+        text = text + f'\n(arch: *{arch}*, branch: *{branch}*)'
         await not_installed(ref=ref_to_search,
                             title='SDK extensions are required',
                             text=text,

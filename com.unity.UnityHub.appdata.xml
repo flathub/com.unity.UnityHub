@@ -11,12 +11,20 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image type="source" width="1300" height="805">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/e580df42dc80205788f3d55dee07950530488b59/screenshots/installed-versions.png</image>
-      <caption>Unity Hub listing installed versions of Unity Editor</caption>
+      <image type="source" width="1300" height="820">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/5ab620bec259715ed82e32fb12f95313060eea28/screenshots/installed-versions.png</image>
+      <caption>Listing installed versions of the Unity Editor</caption>
     </screenshot>
     <screenshot>
-      <image type="source" width="1300" height="805">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/e580df42dc80205788f3d55dee07950530488b59/screenshots/splash-screen.png</image>
-      <caption>Unity Hub prompting the user to log in</caption>
+      <image type="source" width="1300" height="820">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/5ab620bec259715ed82e32fb12f95313060eea28/screenshots/install-page.png</image>
+      <caption>prompting the user to log in</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="1300" height="820">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/5ab620bec259715ed82e32fb12f95313060eea28/screenshots/learn-page.png</image>
+      <caption>prompting the user to log in</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="1300" height="820">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/5ab620bec259715ed82e32fb12f95313060eea28/screenshots/dark-mode.png</image>
+      <caption>prompting the user to log in</caption>
     </screenshot>
   </screenshots>
   <kudos>

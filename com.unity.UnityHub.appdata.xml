@@ -16,15 +16,15 @@
     </screenshot>
     <screenshot>
       <image type="source" width="1300" height="820">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/5ab620bec259715ed82e32fb12f95313060eea28/screenshots/install-page.png</image>
-      <caption>prompting the user to log in</caption>
+      <caption>Managing installed Unity versions</caption>
     </screenshot>
     <screenshot>
       <image type="source" width="1300" height="820">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/5ab620bec259715ed82e32fb12f95313060eea28/screenshots/learn-page.png</image>
-      <caption>prompting the user to log in</caption>
+      <caption>Learning more about Unity</caption>
     </screenshot>
     <screenshot>
       <image type="source" width="1300" height="820">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/5ab620bec259715ed82e32fb12f95313060eea28/screenshots/dark-mode.png</image>
-      <caption>prompting the user to log in</caption>
+      <caption>Dark mode support</caption>
     </screenshot>
   </screenshots>
   <kudos>

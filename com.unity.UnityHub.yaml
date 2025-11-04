@@ -60,9 +60,9 @@ modules:
     sources:
       - type: extra-data
         filename: unityhub.deb
-        url: https://hub.unity3d.com/linux/repos/deb/pool/main/u/unity/unityhub_amd64/unityhub-amd64-3.12.1.deb
-        sha256: 669ce5dc7f1c81598faa94406a42f79b5d8e674e03773a66fb692b92e124c2b9
-        size: 143903740
+        url: https://hub.unity3d.com/linux/repos/deb/pool/main/u/unity/unityhub_amd64/UnityHubSetup-amd64.deb
+        sha256: 4557902db7d03a49f94b3a0f5ba6e3ae769135f94f7157f0fa0aeac4c5338206
+        size: 178536586
         x-checker-data:
           type: debian-repo
           package-name: unityhub

@@ -69,8 +69,22 @@ modules:
           root: https://hub.unity3d.com/linux/repos/deb
           dist: stable
           component: main
-      - type: dir
-        path: icons
+      - type: file
+        path: icons/unityhub-128.png
+      - type: file
+        path: icons/unityhub-16.png
+      - type: file
+        path: icons/unityhub-256.png
+      - type: file
+        path: icons/unityhub-32.png
+      - type: file
+        path: icons/unityhub-48.png
+      - type: file
+        path: icons/unityhub-512.png
+      - type: file
+        path: icons/unityhub-64.png
+      - type: file
+        path: icons/
       - type: file
         path: unityhub.py
       - type: file

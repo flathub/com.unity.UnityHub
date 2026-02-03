@@ -15,6 +15,7 @@ finish-args:
   - --share=ipc
   - --share=network
   - --socket=pulseaudio
+  - --socket=wayland
   - --socket=x11
   - --talk-name=org.freedesktop.Flatpak
   - --talk-name=org.freedesktop.secrets

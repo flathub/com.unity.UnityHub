@@ -5,26 +5,37 @@
   <name>Unity Hub</name>
   <summary>Manage game engine installations</summary>
   <description>
+    <p>**NOTE: This wrapper is not verified by, affiliated with, or supported by Unity Technologies.**</p>
     <p>Unity is used to create half of the world’s games. Unity's real time platform, powered by tools and services, offers incredible possibilities for game developers, and creators across industries and applications.</p>
     <p>Use the Unity Hub to manage multiple installations of the Unity Editor, create new projects, and access your work.</p>
-    <p>NOTE: This wrapper is not verified by, affiliated with, or supported by Unity Technologies.</p>
   </description>
   <screenshots>
     <screenshot type="default">
-      <image type="source" width="1300" height="805">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/e580df42dc80205788f3d55dee07950530488b59/screenshots/installed-versions.png</image>
-      <caption>Unity Hub listing installed versions of Unity Editor</caption>
+      <image type="source" width="1300" height="820">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/5ab620bec259715ed82e32fb12f95313060eea28/screenshots/installed-versions.png</image>
+      <caption>Listing installed versions of the Unity Editor</caption>
     </screenshot>
     <screenshot>
-      <image type="source" width="1300" height="805">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/e580df42dc80205788f3d55dee07950530488b59/screenshots/splash-screen.png</image>
-      <caption>Unity Hub prompting the user to log in</caption>
+      <image type="source" width="1300" height="820">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/5ab620bec259715ed82e32fb12f95313060eea28/screenshots/install-page.png</image>
+      <caption>Managing installed Unity versions</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="1300" height="820">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/5ab620bec259715ed82e32fb12f95313060eea28/screenshots/learn-page.png</image>
+      <caption>Learning more about Unity</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="1300" height="820">https://raw.githubusercontent.com/flathub/com.unity.UnityHub/5ab620bec259715ed82e32fb12f95313060eea28/screenshots/dark-mode.png</image>
+      <caption>Dark mode support</caption>
     </screenshot>
   </screenshots>
   <kudos>
     <kudo>HiDpiIcon</kudo>
   </kudos>
   <releases>
-    <release version="3.12.1" date="2025-04-30">
+    <release version="3.16.0" date="2026-01-29">
       <description></description>
+    </release>
+    <release version="3.12.1" date="2025-04-30">
+      <description/>
     </release>
     <release version="3.9.1" date="2024-09-18">
       <description/>

@@ -21,6 +21,7 @@ finish-args:
   - --talk-name=org.freedesktop.secrets
   - --talk-name=org.gnome.Software
   - --talk-name=org.kde.StatusNotifierWatcher
+  - --talk-name=org.kde.kwalletd6
   # Delays sleep with reason “Application cleanup before suspend”.
   # Ideally it would use the inhibit portal, but here we are.
   - --system-talk-name=org.freedesktop.login1

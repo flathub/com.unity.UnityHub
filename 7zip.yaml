@@ -1,0 +1,18 @@
+# UnityHub > 3.12.0 (at least 3.16.0) started requiring 7zip for the extraction
+# of Unity modules during installation.
+name: 7zip
+buildsystem: simple
+subdir: CPP/7zip/Bundles/Alone2
+build-commands:
+  - make -j $FLATPAK_BUILDER_N_JOBS -f makefile.gcc
+  - install -D ./_o/7zz -t /app/bin
+  - ln -s /app/bin/7zz /app/bin/7za
+  - ln -s /app/bin/7zz /app/bin/7z
+sources:
+  - type: git
+    url: https://github.com/ip7z/7zip.git
+    tag: '26.00'
+    commit: 839151eaaad24771892afaae6bac690e31e58384
+    x-checker-data:
+      type: git
+      tag-pattern: ^([\d.]+)$

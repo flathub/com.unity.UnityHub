@@ -42,7 +42,6 @@ modules:
       - mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu
 
   - shared-modules/glu/glu-9.json
-  - shared-modules/libsecret/libsecret.json
   - openssl-1.1.yaml
   - 7zip.yaml
 

@@ -11,7 +11,6 @@ tags:
 finish-args:
   - --allow=multiarch
   - --device=all
-  - --filesystem=host
   - --share=ipc
   - --share=network
   - --socket=pulseaudio
@@ -24,6 +23,15 @@ finish-args:
   # Delays sleep with reason “Application cleanup before suspend”.
   # Ideally it would use the inhibit portal, but here we are.
   - --system-talk-name=org.freedesktop.login1
+  # Keep home permissions for now for compatibility with the editor
+  # but also mention what we know we need for users that want to
+  # directly map their projects folder and drop said permission.
+  - --filesystem=home
+  - --filesystem=~/.upmconfig.toml
+  - --persist=.local/share/unity3d
+  - --persist=.config/UnityHub
+  - --persist=.cache/Unity
+  - --persist=.config/unity3d
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu

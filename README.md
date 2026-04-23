@@ -2,6 +2,29 @@
 
 This is a Flatpak for [Unity Hub](https://unity.com/unity-hub), a manager for Unity projects and installations.
 
+## IDE Support
+
+If you use [Unity's Visual Studio package](https://docs.unity3d.com/Packages/com.unity.ide.visualstudio@2.0/)
+it will generate C# solution and project files that you can edit in any IDE supporting SDK-style projects,
+such as VSCode with Microsoft's C# Extension or Zed with DotRush.
+
+The package will recommend installation of `org.freedesktop.Sdk.extension.dotnet` and `org.freedesktop.Sdk.extension.mono`
+on startup if you don't have them installed yet to help with this as the .NET support in various IDEs needs the .NET SDK
+itself to run. Put differently, these are not necessary to run the Unity Editor or this Flatpak itself.
+
+To install them:
+
+```
+flatpak install dotnet
+flatpak install mono
+```
+
+And choose the variant matching the runtime of the Flatpak-ed IDE you use (e.g. if you use VSCode and it's using the
+FreeDesktop Runtime 25.08, install the .NET and Mono variants for 25.08).
+
+You can choose the .NET SDK version that best matches your workflow and works with the language server you use in
+your IDE - usually they are pretty backwards compatible so using the latest .NET version tends to work well.
+
 ## Forwarding File Open Requests
 
 The Flatpak includes a `code` script in `/app/bin/code` that will perform a few checks and try to forward requests to

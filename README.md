@@ -68,3 +68,12 @@ uri=$(python -c 'import sys,pathlib; print(pathlib.Path(sys.argv[1]).resolve().a
 
 xdg-open zed://file$uri
 ```
+
+## Unity Editor GPU Selection
+
+The Flatpak sets `PrefersNonDefaultGPU=true` [in the desktop file](https://github.com/flathub/com.unity.UnityHub/blob/master/com.unity.UnityHub.desktop#L11C1-L11C26), but even without it set the Unity Editor might prefer
+the dedicated GPU because it seems to enumerate and select a GPU manually. If you have a hybrid GPU system, this might cause
+the editor to always run on the dedicated GPU, which might be what you want but in some cases might not.
+
+To override this, in the Hub you can right-click your project and use 'Add command line arguments' to add e.g. `-gpu 0`
+or `-gpu 1` to select between available GPUs.

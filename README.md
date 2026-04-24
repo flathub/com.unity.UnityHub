@@ -75,5 +75,5 @@ The Flatpak sets `PrefersNonDefaultGPU=true` [in the desktop file](https://githu
 the dedicated GPU because it seems to enumerate and select a GPU manually. If you have a hybrid GPU system, this might cause
 the editor to always run on the dedicated GPU, which might be what you want but in some cases might not.
 
-To override this, in the Hub you can right-click your project and use 'Add command line arguments' to add e.g. `-gpu 0`
-or `-gpu 1` to select between available GPUs.
+To override this, in the Hub you can right-click your project and use 'Add command line arguments' to add e.g. `-force-device-index 0`
+or `-force-device-index 1` to select between available GPUs. [See also the documentation.](https://docs.unity3d.com/Manual/PlayerCommandLineArguments.html)

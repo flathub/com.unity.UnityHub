@@ -44,6 +44,7 @@ modules:
   - shared-modules/glu/glu-9.json
   - shared-modules/libsecret/libsecret.json
   - openssl-1.1.yaml
+  - libxml2.yaml
 
   - name: unityhub
     buildsystem: simple

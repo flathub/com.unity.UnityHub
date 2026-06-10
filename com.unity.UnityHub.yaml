@@ -42,9 +42,9 @@ modules:
       - mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu
 
   - shared-modules/glu/glu-9.json
-  - shared-modules/libsecret/libsecret.json
   - openssl-1.1.yaml
   - libxml2.yaml
+  - 7zip.yaml
 
   - name: unityhub
     buildsystem: simple
@@ -62,9 +62,9 @@ modules:
     sources:
       - type: extra-data
         filename: unityhub.deb
-        url: https://hub.unity3d.com/linux/repos/deb/pool/main/u/unity/unityhub_amd64/UnityHubSetup-3.16.2-amd64.deb
-        sha256: 4af1e7208a8d7d3d8f87236e2a588197b0aca24644e25aec9db870b5ffb562c0
-        size: 175621370
+        url: https://hub.unity3d.com/linux/repos/deb/pool/main/u/unity/unityhub_amd64/UnityHubSetup-3.18.2-amd64.deb
+        sha256: e2c96eb83da0ef45fdf0de8f93d9690bffc816978fa4765ffe6a300db8744bc8
+        size: 163874282
         x-checker-data:
           type: debian-repo
           package-name: unityhub

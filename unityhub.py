@@ -27,8 +27,9 @@ def edit_pref(root, pref, type, func):
     else:
         return False
 
-def replace_string_pref(root, pref, value):
-    return edit_pref(root, pref, 'string', lambda _: value)
+
+def set_default_string_pref(root, pref, value):
+    return edit_pref(root, pref, 'string', lambda existing: existing if existing is not None else value)
 
 
 def main():
@@ -47,9 +48,9 @@ def main():
     root = tree.getroot()
 
     was_changed = any([
-        replace_string_pref(root, 'kScriptsDefaultApp', b64_editor),
-        replace_string_pref(root, 'kScriptEditorArgs', b64_args),
-        replace_string_pref(root, 'kScriptEditorArgs/app/bin/code', b64_args),
+        set_default_string_pref(root, 'kScriptsDefaultApp', b64_editor),
+        set_default_string_pref(root, 'kScriptEditorArgs', b64_args),
+        set_default_string_pref(root, 'kScriptEditorArgs/app/bin/code', b64_args),
     ])
 
     if was_changed:

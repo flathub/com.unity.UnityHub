@@ -1,8 +1,8 @@
 app-id: com.unity.UnityHub
 base: org.electronjs.Electron2.BaseApp
-base-version: '24.08'
+base-version: '25.08'
 runtime: org.freedesktop.Sdk
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 command: start-unityhub
 separate-locales: false
@@ -28,13 +28,13 @@ finish-args:
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '24.08'
+    version: '25.08'
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '24.08'
+    version: '25.08'
   org.freedesktop.Platform.ffmpeg-full:
     directory: lib/ffmpeg
-    version: '24.08'
+    version: '25.08'
     add-ld-path: .
 modules:
   - name: compat
@@ -43,8 +43,9 @@ modules:
       - mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu
 
   - shared-modules/glu/glu-9.json
-  - shared-modules/libsecret/libsecret.json
   - openssl-1.1.yaml
+  - libxml2.yaml
+  - 7zip.yaml
 
   - name: unityhub
     buildsystem: simple
@@ -62,9 +63,9 @@ modules:
     sources:
       - type: extra-data
         filename: unityhub.deb
-        url: https://hub.unity3d.com/linux/repos/deb/pool/main/u/unity/unityhub_amd64/UnityHubSetup-3.16.1-amd64.deb
-        sha256: 0b6d46f5b6e6eb3fc948f6fdcea2519e9aa5241f96dd8df7b5b1061592089537
-        size: 175671696
+        url: https://hub.unity3d.com/linux/repos/deb/pool/main/u/unity/unityhub_amd64/UnityHubSetup-3.18.3-amd64.deb
+        sha256: e868e293acc840c62802bf2398ca775faf97bb97dd71b87613177c793a126eda
+        size: 163615058
         x-checker-data:
           type: debian-repo
           package-name: unityhub

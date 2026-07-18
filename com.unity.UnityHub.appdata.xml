@@ -5,7 +5,6 @@
   <name>Unity Hub</name>
   <summary>Manage game engine installations</summary>
   <description>
-    <p>**NOTE: This wrapper is not verified by, affiliated with, or supported by Unity Technologies.**</p>
     <p>Unity is used to create half of the world’s games. Unity's real time platform, powered by tools and services, offers incredible possibilities for game developers, and creators across industries and applications.</p>
     <p>Use the Unity Hub to manage multiple installations of the Unity Editor, create new projects, and access your work.</p>
   </description>

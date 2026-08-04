@@ -58,14 +58,13 @@ modules:
       - install -Dm 755 patch-resources.py /app/bin/patch-resources
       - install -Dm 644 com.unity.UnityHub.appdata.xml /app/share/metainfo/com.unity.UnityHub.appdata.xml
       - install -Dm 644 com.unity.UnityHub.desktop /app/share/applications/com.unity.UnityHub.desktop
-      - for size in 16 32 48 64 128 256 512; do install -Dm 644 unityhub-${size}.png
-        /app/share/icons/hicolor/${size}x${size}/apps/com.unity.UnityHub.png; done
+      - install -Dm 644 unityhub.png /app/share/icons/hicolor/512x512/apps/com.unity.UnityHub.png
     sources:
       - type: extra-data
         filename: unityhub.deb
-        url: https://hub.unity3d.com/linux/repos/deb/pool/main/u/unity/unityhub_amd64/UnityHubSetup-3.19.5-amd64.deb
-        sha256: 5a5b57adc9ce20931c4154c57ffded08f3ffa2743286fdf14c9e7add6b212540
-        size: 207734022
+        url: https://hub.unity3d.com/linux/repos/deb/pool/main/u/unity/unityhub_amd64/unityhub_3.20.0_amd64.deb
+        sha256: 22303da6cd88026011016dd8fe2de01cbb41d630650a7448123e616680999d54
+        size: 158826102
         x-checker-data:
           type: debian-repo
           package-name: unityhub
@@ -73,19 +72,7 @@ modules:
           dist: stable
           component: main
       - type: file
-        path: icons/unityhub-128.png
-      - type: file
-        path: icons/unityhub-16.png
-      - type: file
-        path: icons/unityhub-256.png
-      - type: file
-        path: icons/unityhub-32.png
-      - type: file
-        path: icons/unityhub-48.png
-      - type: file
-        path: icons/unityhub-512.png
-      - type: file
-        path: icons/unityhub-64.png
+        path: icons/unityhub.png
       - type: file
         path: unityhub.py
       - type: file

@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 bsdtar -xf unityhub.deb 'data.tar.*'
-tar -xf data.tar.bz2 --strip-components=3 ./opt/unityhub
+tar -xf data.tar.zst --strip-components=4 ./usr/lib/unityhub
 rm data.tar.* unityhub.deb
 
 patch-resources resources/app.asar

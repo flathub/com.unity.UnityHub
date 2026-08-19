@@ -58,7 +58,8 @@ modules:
       - install -Dm 755 patch-resources.py /app/bin/patch-resources
       - install -Dm 644 com.unity.UnityHub.appdata.xml /app/share/metainfo/com.unity.UnityHub.appdata.xml
       - install -Dm 644 com.unity.UnityHub.desktop /app/share/applications/com.unity.UnityHub.desktop
-      - install -Dm 644 unityhub.png /app/share/icons/hicolor/512x512/apps/com.unity.UnityHub.png
+      - for size in 16 24 32 48 64 128 256 512; do install -Dm 644 unityhub-${size}.png
+        /app/share/icons/hicolor/${size}x${size}/apps/com.unity.UnityHub.png; done
     sources:
       - type: extra-data
         filename: unityhub.deb
@@ -72,7 +73,21 @@ modules:
           dist: stable
           component: main
       - type: file
-        path: icons/unityhub.png
+        path: icons/unityhub-16.png
+      - type: file
+        path: icons/unityhub-24.png
+      - type: file
+        path: icons/unityhub-32.png
+      - type: file
+        path: icons/unityhub-48.png
+      - type: file
+        path: icons/unityhub-64.png
+      - type: file
+        path: icons/unityhub-128.png
+      - type: file
+        path: icons/unityhub-256.png
+      - type: file
+        path: icons/unityhub-512.png
       - type: file
         path: unityhub.py
       - type: file

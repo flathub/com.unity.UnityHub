@@ -11,8 +11,8 @@ build-commands:
 sources:
   - type: git
     url: https://github.com/ip7z/7zip.git
-    tag: '26.03'
-    commit: 0766b733fe3e06dd2a7f9a3cfbf2108ac73abd17
+    tag: '26.05'
+    commit: b88c6bc09339de32f7d18bbab900686b244f42ba
     x-checker-data:
       type: git
       tag-pattern: ^([\d.]+)$

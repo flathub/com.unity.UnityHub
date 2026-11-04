@@ -20,7 +20,7 @@ flatpak install mono
 ```
 
 And choose the variant matching the runtime of the Flatpak-ed IDE you use (e.g. if you use VSCode and it's using the
-FreeDesktop Runtime 25.08, install the .NET and Mono variants for 25.08).
+FreeDesktop Runtime 26.08, install the .NET and Mono variants for 26.08).
 
 You can choose the .NET SDK version that best matches your workflow and works with the language server you use in
 your IDE - usually they are pretty backwards compatible so using the latest .NET version tends to work well.
